@@ -2,7 +2,15 @@
 
 CI/CD, containers, Kubernetes, NGINX, observability, security, release, and operational engineering for the learning repositories.
 
-Last verified: 2026-06-20
+Last verified: 2026-06-21
+
+## Development Environment
+
+If Python, Node.js, or NGINX are missing locally, enter the Nix shell:
+
+```bash
+nix develop
+```
 
 ## Runnable Starter Project
 
@@ -12,6 +20,29 @@ Run a tiny observable service before adding Docker, Kubernetes, NGINX, or OpenTe
 python3 projects/healthcheck-observability/server.py --demo
 python3 projects/healthcheck-observability/test_server.py
 ```
+
+## Target Hands-On Projects
+
+NGINX:
+
+```bash
+python3 projects/nginx-reverse-proxy/check_config.py
+```
+
+GitHub Actions:
+
+```bash
+python3 projects/github-actions-ci/check_workflow.py
+```
+
+Realtime networking:
+
+```bash
+node projects/realtime-transport-fallback/transport.test.mjs
+node projects/p2p-udp-gossip/peer.test.mjs
+```
+
+These are real config files kept under `projects/` so they can be copied into active apps when ready.
 
 To run the local HTTP service:
 

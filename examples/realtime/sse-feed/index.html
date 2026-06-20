@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SSE feed (stdlib)</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 2rem;
+        max-width: 40rem;
+        line-height: 1.4;
+      }
+      h1 {
+        font-size: 1.25rem;
+      }
+      #status {
+        font-weight: 600;
+      }
+      .ok {
+        color: #137333;
+      }
+      .warn {
+        color: #b06000;
+      }
+      .err {
+        color: #b3261e;
+      }
+      #log {
+        list-style: none;
+        padding: 0;
+      }
+      #log li {
+        border-bottom: 1px solid #ddd;
+        padding: 0.35rem 0;
+        font-family: ui-monospace, monospace;
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Server-Sent Events feed</h1>
+    <p>
+      This page subscribes to <code>/events</code> with
+      <code>new EventSource(...)</code> and appends each event below. The server
+      pushes a few timestamped JSON events, then closes the stream.
+    </p>
+    <p id="status" class="warn">connecting...</p>
+    <ul id="log"></ul>
+
+    <script>
+      "use strict";
+
+      var statusEl = document.getElementById("status");
+      var logEl = document.getElementById("log");
+
+      function setStatus(text, cls) {
+        statusEl.textContent = text;
+        statusEl.className = cls;
+      }
+
+      function append(text) {
+        var li = document.createElement("li");
+        li.textContent = text;
+        logEl.appendChild(li);
+      }
+
+      // ----- Fallback branch -------------------------------------------------
+      // EventSource is Baseline across modern browsers, but a defensive client
+      // checks for it and degrades to plain polling when it is missing (very old
+      // browsers, locked-down embedded webviews, or some test environments).
+      if (typeof window.EventSource === "undefined") {
+        setStatus(
+          "EventSource not supported - falling back to polling /events",
+          "warn"
+        );
+        startPollingFallback();
+      } else {
+        startEventSource();
+      }
+
+      // ----- Primary path: Server-Sent Events --------------------------------
+      function startEventSource() {
+        var source = new EventSource("/events");
+
+        // `open` fires once the HTTP response (text/event-stream) is received.
+        source.addEventListener("open", function () {
+          setStatus("connected (SSE)", "ok");
+        });
+
+        // The server tags records with `event: tick`, so listen for "tick".
+        // (The default unnamed event would fire `message` instead.)
+        source.addEventListener("tick", function (ev) {
+          var data = JSON.parse(ev.data);
+          append("#" + (ev.lastEventId || "?") + " " + data.message + "  (ts=" + data.ts + ")");
+        });
+
+        // Also handle the default `message` event in case the server sends
+        // un-named records, so the demo still shows something.
+        source.addEventListener("message", function (ev) {
+          append("message: " + ev.data);
+        });
+
+        // `error` fires on disconnect. The browser auto-reconnects (honoring the
+        // server's `retry:` hint) UNLESS the connection is closed cleanly, where
+        // readyState becomes CLOSED. Our demo server closes after a few events,
+        // so we report that as "stream finished".
+        source.addEventListener("error", function () {
+          if (source.readyState === EventSource.CLOSED) {
+            setStatus("stream finished (server closed)", "ok");
+          } else {
+            setStatus("connection lost - browser will retry", "warn");
+          }
+        });
+      }
+
+      // ----- Fallback path: polling -----------------------------------------
+      // SSE responses are themselves readable as one HTTP body, so the simplest
+      // fallback re-fetches /events and parses the same wire format by hand.
+      // A production polling endpoint would usually be a separate JSON route.
+      function startPollingFallback() {
+        fetch("/events")
+          .then(function (res) {
+            return res.text();
+          })
+          .then(function (text) {
+            // Split on the blank line that terminates each SSE record.
+            text
+              .split("\n\n")
+              .filter(function (block) {
+                return block.indexOf("data:") !== -1;
+              })
+              .forEach(function (block) {
+                var line = block
+                  .split("\n")
+                  .find(function (l) {
+                    return l.indexOf("data:") === 0;
+                  });
+                if (line) {
+                  append("polled: " + line.slice("data:".length).trim());
+                }
+              });
+            setStatus("done (polling fallback)", "ok");
+          })
+          .catch(function () {
+            setStatus("polling failed", "err");
+          });
+      }
+    </script>
+  </body>
+</html>
