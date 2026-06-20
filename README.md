@@ -4,6 +4,20 @@ CI/CD, containers, Kubernetes, NGINX, observability, security, release, and oper
 
 Last verified: 2026-06-20
 
+## Runnable Starter Project
+
+Run a tiny observable service before adding Docker, Kubernetes, NGINX, or OpenTelemetry:
+
+```bash
+python3 projects/healthcheck-observability/server.py --demo
+```
+
+To run the local HTTP service:
+
+```bash
+python3 projects/healthcheck-observability/server.py
+```
+
 ## Why This Repo Exists
 
 Frontend, backend, and AI examples all need the same platform skills:
