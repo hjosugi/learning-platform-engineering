@@ -32,6 +32,24 @@ Projects:
 - Add `examples/docker-compose-postgres`.
 - Add `examples/kubernetes-basic-web-api`.
 
+### NGINX and reverse proxy basics
+
+- static file serving
+- reverse proxy to one local API
+- path-based routing
+- TLS termination concepts
+- WebSocket proxying
+- HTTP/3 and QUIC awareness
+- access logs and error logs
+- rate limiting and request size limits
+
+Projects:
+
+- Add `docs/nginx-reverse-proxy.md`.
+- Add `examples/nginx-reverse-proxy`.
+- Add a WebSocket proxy example that forwards to a local echo service.
+- Add a short note explaining when NGINX belongs at the edge and when an app framework is enough.
+
 ### Observability
 
 - traces
@@ -96,3 +114,4 @@ Projects:
 - Every deployable app has health checks.
 - At least one app exports traces/metrics/logs.
 - At least one real-time example documents fallback behavior.
+- At least one example runs behind NGINX locally.
