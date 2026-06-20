@@ -75,7 +75,7 @@ docs/
 
 ## What Belongs Elsewhere
 
-- P2P protocol mechanics belong in `learning-networking-protocols`
+- P2P, WebRTC, and libp2p protocol mechanics belong here under realtime networking notes
 - ethical hacking labs belong in `learning-security-labs`
 - app-specific framework code belongs in frontend/backend/AI repos
 - Bazel and Nix experiments belong in `learning-build-systems`
