@@ -10,6 +10,7 @@ Run a tiny observable service before adding Docker, Kubernetes, NGINX, or OpenTe
 
 ```bash
 python3 projects/healthcheck-observability/server.py --demo
+python3 projects/healthcheck-observability/test_server.py
 ```
 
 To run the local HTTP service:
