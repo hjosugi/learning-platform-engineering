@@ -6,6 +6,15 @@ Last verified: 2026-06-20
 
 Learn when to use polling, Server-Sent Events, WebSocket, WebRTC data channels, and WebTransport.
 
+Before choosing one of those transports, run the protocol lab:
+
+```bash
+python3 projects/network-protocol-lab/test_protocol.py
+```
+
+It covers the lower-level decisions that still matter inside every realtime
+transport: framing, retries, timeouts, idempotency, and proxy headers.
+
 WebTransport is the main new experiment here. It belongs in this repository because it requires platform-level thinking:
 
 - HTTPS and secure contexts

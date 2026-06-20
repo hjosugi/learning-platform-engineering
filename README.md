@@ -23,6 +23,13 @@ python3 projects/healthcheck-observability/test_server.py
 
 ## Target Hands-On Projects
 
+Network protocol foundations:
+
+```bash
+python3 projects/network-protocol-lab/protocol.py
+python3 projects/network-protocol-lab/test_protocol.py
+```
+
 NGINX:
 
 ```bash
@@ -60,6 +67,7 @@ Frontend, backend, and AI examples all need the same platform skills:
 - dependency and supply-chain hygiene
 - observable services
 - real-time networking experiments
+- TCP/UDP/HTTP protocol fundamentals
 - reverse proxy and edge-routing basics
 - simple deployment notes
 - runbooks for failures
@@ -83,13 +91,14 @@ The point is not to build a production platform. The point is to understand the 
 1. GitHub Actions CI
 2. Docker and Compose
 3. Kubernetes concepts
-4. NGINX reverse proxy, static files, TLS, load balancing, WebSocket proxying
-5. OpenTelemetry traces, metrics, logs
-6. Real-time networking: SSE, WebSocket, and WebTransport
-7. OWASP Top 10 and secure coding basics
-8. dependency security and SBOM basics
-9. release and rollback checklist
-10. runbooks and incident notes
+4. Network foundations: TCP framing, UDP loss, HTTP idempotency, timeouts
+5. NGINX reverse proxy, static files, TLS, load balancing, WebSocket proxying
+6. OpenTelemetry traces, metrics, logs
+7. Real-time networking: SSE, WebSocket, and WebTransport
+8. OWASP Top 10 and secure coding basics
+9. dependency security and SBOM basics
+10. release and rollback checklist
+11. runbooks and incident notes
 
 ## Planned Structure
 
@@ -102,6 +111,7 @@ examples/
   realtime/
 docs/
   2026-learning-items.md
+  networking-foundations.md
   nginx-reverse-proxy.md
   realtime-networking.md
   repository-profile.md
@@ -114,6 +124,7 @@ docs/
 
 - CI/CD workflow templates
 - Docker, Compose, and Kubernetes learning examples
+- TCP/UDP/HTTP protocol drills
 - NGINX and reverse proxy notes
 - OpenTelemetry and logging/metrics/traces notes
 - release checklists, runbooks, and operational templates

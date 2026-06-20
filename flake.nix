@@ -28,6 +28,7 @@
 
             shellHook = ''
               echo "learning-platform-engineering dev shell"
+              echo "Try: python3 projects/network-protocol-lab/test_protocol.py"
               echo "Try: python3 projects/nginx-reverse-proxy/check_config.py"
               echo "Try: node projects/realtime-transport-fallback/transport.test.mjs"
             '';
