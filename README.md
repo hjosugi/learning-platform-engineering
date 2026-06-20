@@ -13,6 +13,7 @@ Frontend, backend, and AI examples all need the same platform skills:
 - safe secret handling
 - dependency and supply-chain hygiene
 - observable services
+- real-time networking experiments
 - simple deployment notes
 - runbooks for failures
 
@@ -24,10 +25,11 @@ This repo keeps those cross-cutting skills out of app-specific repos.
 2. Docker and Compose
 3. Kubernetes concepts
 4. OpenTelemetry traces, metrics, logs
-5. OWASP Top 10 and secure coding basics
-6. dependency security and SBOM basics
-7. release and rollback checklist
-8. runbooks and incident notes
+5. Real-time networking: SSE, WebSocket, and WebTransport
+6. OWASP Top 10 and secure coding basics
+7. dependency security and SBOM basics
+8. release and rollback checklist
+9. runbooks and incident notes
 
 ## Repository Profile
 
